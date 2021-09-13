@@ -10,8 +10,7 @@ const useStyle = makeStyles({
         color: '#ffffff',
         textDecoration: 'none',
         marginRight: 20,
-        fontSize: 20
-
+        fontSize: 20,
     }
 })
 
