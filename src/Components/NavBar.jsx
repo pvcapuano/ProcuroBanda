@@ -9,7 +9,7 @@ const useStyle = makeStyles({
 export default function NavBar() {
     const classes = useStyle()
     return(
-        <AppBar className={classes.header}>
+        <AppBar className={classes.header} position="static">
             <Toolbar>
                 <Typography component="h2">Procuro Banda</Typography>
                 <Typography component="h2">Todos os músicos</Typography>
