@@ -1,18 +1,11 @@
 {
   "users": [
     {
-      "name": "Paulo Victor",
-      "instrumento": "Guitarra",
-      "estado": "Rio de Janeiro",
-      "email": "pv@pv.com.br",
+      "name": "Paulo Victor Capuano",
+      "instrumento": "Guitarra123123asdasd",
+      "estado": "Rio de Janeirooooo",
+      "email": "pv@pv.com.brbebrrbr",
       "id": 1
-    },
-    {
-      "name": "victor",
-      "instrumento": "baixo",
-      "estado": "sp",
-      "email": "adsa@asdas",
-      "id": 2
     }
   ]
 }

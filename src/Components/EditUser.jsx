@@ -1,8 +1,7 @@
 import { FormControl, FormGroup, InputLabel, Input, Button, makeStyles, Typography } from '@material-ui/core'
-import React from 'react'
-import { useState } from 'react'
-import { addUser } from '../Service/api'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { editUser, getUsers } from '../Service/api'
+import { useHistory, useParams } from 'react-router-dom'
 
 const useStyle = makeStyles({
     container: {
@@ -21,25 +20,35 @@ const initialValues = {
     email: ''
 }
 
-export default function AddUser() {
+export default function EditUser() {
     const [ user, setUser] = useState(initialValues)
     const { name, instrumento, estado, email } = user
+    const { id } = useParams()
     const classes = useStyle()
     const history = useHistory()
+
+    useEffect(() => {
+        loadUserDetails()
+    }, [])
+
+    const loadUserDetails = async () => {
+        const response = await getUsers(id)
+        setUser(response.data)
+    }
 
     const onValueChange = (e) => {
         console.log(e.target.value)
         setUser({ ...user, [e.target.name]: e.target.value })
     }
 
-    const addUserDetails = async () => {
-        await addUser(user)
-        history.push('./all')
+    const editUserDetails = async () => {
+        const response = await editUser(id, user)
+        history.push('/all')
     }
 
     return(
         <FormGroup className={classes.container}>
-            <Typography variant="h4">Adicionar Músico</Typography>
+            <Typography variant="h4">Editar Músico</Typography>
             <FormControl>
                 <InputLabel>Nome</InputLabel>
                 <Input onChange={(e) => onValueChange(e)} name='name' value={name} />
@@ -56,7 +65,7 @@ export default function AddUser() {
                 <InputLabel>E-mail</InputLabel>
                 <Input onChange={(e) => onValueChange(e)} name='email' value={email} />
             </FormControl>
-            <Button variant="contained" onClick={() => addUserDetails()} color="default">Adicionar Músico</Button>
+            <Button variant="contained" onClick={() => editUserDetails()} color="default">Editar Músico</Button>
         </FormGroup>
     )
 }
