@@ -1,6 +1,7 @@
 import { FormControl, FormGroup, InputLabel, Input, Button, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import { useState } from 'react'
+import { addUser } from '../Service/api'
 
 const useStyle = makeStyles({
     container: {
@@ -21,12 +22,15 @@ const initialValues = {
 
 export default function AddUser() {
     const [ user, setUser] = useState(initialValues)
-    const { nome, instrumeto, estado, email } = user
+    const { name, instrumento, estado, email } = user
     const classes = useStyle()
 
     const onValueChange = (e) => {
-        console.log(e.target.value)
-        setUser({ ...user, [e.target.nome]: e.target.value })
+        setUser({ ...user, [e.target.name]: e.target.value })
+    }
+
+    const addUserDetails = async () => {
+        await addUser(user)
     }
 
     return(
@@ -34,21 +38,21 @@ export default function AddUser() {
             <Typography variant="h4">Adicionar Músico</Typography>
             <FormControl>
                 <InputLabel>Nome</InputLabel>
-                <Input onChange={(e) => onValueChange(e)} />
+                <Input onChange={(e) => onValueChange(e)} name='name' value={name} />
             </FormControl>
             <FormControl>
                 <InputLabel>Instrumento</InputLabel>
-                <Input onChange={(e) => onValueChange(e)} />
+                <Input onChange={(e) => onValueChange(e)} name='instrumento' value={instrumento} />
             </FormControl>
             <FormControl>
                 <InputLabel>Estado</InputLabel>
-                <Input onChange={(e) => onValueChange(e)} />
+                <Input onChange={(e) => onValueChange(e)} name='estado' value={estado} />
             </FormControl>
             <FormControl>
                 <InputLabel>E-mail</InputLabel>
-                <Input onChange={(e) => onValueChange(e)} />
+                <Input onChange={(e) => onValueChange(e)} name='email' value={email} />
             </FormControl>
-            <Button variant="contained" color="default">Adicionar Músico</Button>
+            <Button variant="contained" onClick={() => addUserDetails()} color="default">Adicionar Músico</Button>
         </FormGroup>
     )
 }
